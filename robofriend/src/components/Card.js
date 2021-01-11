@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = ({id, name, email}) =>{ // data passed from CardList
+const Card = ({id, name, email}) =>{ // data passed from CardList component.
     return(
         
         <div className='bg-light-green dib br4 pa3 ma3 grow bw2 shadow-5'>

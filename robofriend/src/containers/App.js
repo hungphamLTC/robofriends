@@ -1,6 +1,7 @@
 import React from 'react';
-import CardList from './CardList';
-import SearchBox from './SearchBox';
+import CardList from '../components/CardList';
+import SearchBox from '../components/SearchBox';
+import Scroll from '../components/Scroll';
 import "./App.css";
 //Statefull app component as a Parent of CardList and SearchBox
 class App extends React.Component{
@@ -51,23 +52,25 @@ class App extends React.Component{
     }
 
     render(){
-
-
-        const filterRobot = this.state.robots.filter(robot=>{
+        const {robots, searchField, errors} = this.state;
+        const filterRobot = robots.filter(robot=>{
             //check robot names and comparing with user text
-            return robot.name.toLowerCase().includes(this.state.searchField.toLowerCase());
+            return robot.name.toLowerCase().includes(searchField.toLowerCase());
         });
 
-        if(this.state.robots.length === 0){ // if 
+        if(robots.length === 0){ // we cannot fetch any data from API, show this error
             return(
-                <h3>{this.state.errors}</h3>
+                <h3>{errors}</h3>
             );
-        }else{
+        }else{ // if we have fetched data, show below according to filered robot.
             return(
                 <div className='tc'>
                     <h1 className="f1 robo-friend ">Robo Friends</h1>
                     <SearchBox onSearchChange = {this.searchChange}/>
-                    <CardList robots = {filterRobot}/>
+                    <Scroll>
+                        <CardList robots = {filterRobot}/>
+                    </Scroll>
+                    
                 </div>
             );
         }
